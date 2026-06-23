@@ -271,6 +271,29 @@
 </head>
 <body>
 
+<div id="pw-gate" style="display:none;position:fixed;inset:0;z-index:99999;background:#f5f2ec;display:flex;align-items:center;justify-content:center;font-family:Inter,-apple-system,sans-serif;">
+  <div style="background:#faf8f4;border:1px solid #e0ddd6;border-radius:10px;padding:2.5rem 2rem;width:100%;max-width:360px;text-align:center;">
+    <div style="font-size:1.5rem;font-weight:600;margin-bottom:0.5rem;color:#1a1a1a;">Password required</div>
+    <div style="color:#6a6a66;font-size:0.9rem;margin-bottom:1.5rem;">Enter the password to access this site.</div>
+    <input id="pw-input" type="password" placeholder="Password" style="width:100%;padding:0.65rem 0.9rem;border:1px solid #c5c2bb;border-radius:6px;font-size:1rem;outline:none;margin-bottom:0.75rem;box-sizing:border-box;" />
+    <div id="pw-error" style="color:#c45a2d;font-size:0.85rem;margin-bottom:0.75rem;display:none;">Incorrect password. Try again.</div>
+    <button onclick="checkPassword()" style="width:100%;padding:0.65rem;background:#1a1a1a;color:#fff;border:none;border-radius:6px;font-size:1rem;cursor:pointer;">Enter</button>
+  </div>
+</div>
+<script>
+(function(){
+  var gate = document.getElementById('pw-gate');
+  if(sessionStorage.getItem('pw-ok')==='1'){gate.style.display='none';return;}
+  gate.style.display='flex';
+  document.getElementById('pw-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPassword();});
+})();
+function checkPassword(){
+  var val=document.getElementById('pw-input').value;
+  if(val==='password123'){sessionStorage.setItem('pw-ok','1');document.getElementById('pw-gate').style.display='none';}
+  else{document.getElementById('pw-error').style.display='block';document.getElementById('pw-input').value='';}
+}
+</script>
+
 <!-- Header -->
 <header>
   <div class="container">
